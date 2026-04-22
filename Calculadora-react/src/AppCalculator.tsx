@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Button from "./Button";
+import "./Calculator.css";
 
 type AppCalculadorProps = {
   functionBackMenu: () => void;
@@ -9,39 +11,118 @@ function AppCalculador({ functionBackMenu }: AppCalculadorProps) {
     { label: "7", type: "number" },
     { label: "8", type: "number" },
     { label: "9", type: "number" },
-    { label: "/", type: "operator" },
+    { label: "C", type: "clear" },
+    { label: "DEL", type: "delete" },
 
     { label: "4", type: "number" },
     { label: "5", type: "number" },
     { label: "6", type: "number" },
     { label: "*", type: "operator" },
+    { label: "/", type: "operator" },
 
     { label: "1", type: "number" },
     { label: "2", type: "number" },
     { label: "3", type: "number" },
+    { label: "+", type: "operator" },
     { label: "-", type: "operator" },
 
     { label: "0", type: "number" },
-    { label: ".", type: "decimal" },
+    { label: "(", type: "parenthesis" },
+    { label: ")", type: "parenthesis" },
     { label: "=", type: "equal" },
-    { label: "+", type: "operator" },
-
-    { label: "C", type: "clear" },
-    { label: "⌫", type: "delete" },
   ];
 
-  const listButtons = buttons.map((element, idx) => (
-    <Button key={idx} text={element.label}></Button>
-  ));
+  const [operation, setOperation] = useState("");
+
+  const getHandler = (type: string, label: string) => {
+    switch (type) {
+      case "number":
+        return () => handlerOpetarion(label);
+      case "clear":
+        return () => handlerClear();
+      case "delete":
+        return () => handlerDelete();
+      case "equal":
+        return () => handlerEqual();
+      default:
+        return () => handlerOpetarion(label);
+    }
+  };
+
+  const listButtons = buttons.map((buttCalculator, idx) => {
+    return (
+      <Button
+        key={idx}
+        text={buttCalculator.label}
+        onClick={getHandler(buttCalculator.type, buttCalculator.label)}
+      ></Button>
+    );
+  });
+
+  const tokenize = (textInput: string) => {
+    return textInput.match(/\d+\.?\d*|\(|\)|[+\-*/]/g) || null;
+  };
+
+  const isOperator = (char: string) => ["*", "/", "+", "-"].includes(char);
+
+  const handlerOpetarion = (value: string) => {
+    setOperation((prev) => {
+      const last = prev.slice(-1);
+      const secondLast = prev.slice(-2, -1);
+      // restrictions at the beginning
+      if (!prev) {
+        if (isOperator(value) && value !== "-") return prev;
+        return value;
+      }
+
+      if (isOperator(value)) {
+        if (last === "(") {
+          if (value === "-") return prev + value;
+          return prev;
+        }
+
+        if (secondLast === "(" && last === "-") return prev;
+
+        // change operator
+        if (isOperator(last)) {
+          return prev.slice(0, -1) + value;
+        }
+      }
+
+      if (value === ")") {
+        const numOpen = (prev.match(/\(/g) || []).length;
+        const numClose = (prev.match(/\)/g) || []).length;
+
+        if (numClose >= numOpen) return prev;
+
+        // Do no close after operator or (
+        if (isOperator(last) || last === "(") return prev;
+
+        return prev + value;
+      }
+      return prev + value;
+    });
+  };
+
+  const handlerClear = () => {
+    setOperation("");
+  };
+
+  const handlerDelete = () => {
+    setOperation((prev) => prev.slice(0, -1));
+  };
+
+  const handlerEqual = () => {
+    alert(tokenize(operation));
+  };
 
   return (
     <>
       <Button text="Back" onClick={() => functionBackMenu()}></Button>
-      <br />
-      <br />
-
-      <input type="text" value={0} readOnly />
-      <div>{listButtons}</div>
+      <div className="calculator-body">
+        <input type="text" value={operation} readOnly />
+        <div className="grid-c3 ">{listButtons}</div>
+      </div>
     </>
   );
 }
