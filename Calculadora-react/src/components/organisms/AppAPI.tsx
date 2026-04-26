@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import ActionAreaCard from "./components/ActionAreaCard";
-import SearchAppBar from "./components/SearchAppBar";
+import ActionAreaCard from "../molecules/ActionAreaCard";
+import SearchAppBar from "../molecules/SearchAppBar";
 
 type PokemonList = {
   name: string;

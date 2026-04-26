@@ -1,8 +1,8 @@
 import { useState } from "react";
-import AppSuma from "./AppSum";
-import Menu from "./Menu";
-import AppCalculador from "./AppCalculator";
-import AppAPI from "./AppAPI";
+import AppSuma from "./components/organisms/AppSum";
+import Menu from "./components/organisms/Menu";
+import AppCalculador from "./components/organisms/AppCalculator";
+import AppAPI from "./components/organisms/AppAPI";
 
 function App() {
   const [option, setOption] = useState(0);
