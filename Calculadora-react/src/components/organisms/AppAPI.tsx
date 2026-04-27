@@ -3,12 +3,13 @@ import ImgMediaCard from "../molecules/ImgMediaCard";
 import SearchAppBar from "../molecules/SearchAppBar";
 import CardsGrid from "./CardsGrid";
 import Details from "./Details";
-import type { Product } from "../types/product";
+import type { Product } from "../../types/product";
 
 function AppAPI() {
   const [data, setData] = useState<Product[]>([]);
   const [option, setOption] = useState(0);
   const [selectedItem, setSelectedItem] = useState<Product | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,11 @@ function AppAPI() {
     handlerOption(1);
   };
 
-  let list = data.map((item) => {
+  const filteredData = data.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  let list = filteredData.map((item) => {
     return (
       <ImgMediaCard
         key={item.id}
@@ -48,9 +53,9 @@ function AppAPI() {
 
   return (
     <>
-      <SearchAppBar title="E-commerce API" />
+      <SearchAppBar title="E-commerce API" onSearch={setSearch} />
       {option === 0 && <CardsGrid>{list}</CardsGrid>}
-      {option === 1 && (
+      {option === 1 && selectedItem && (
         <Details item={selectedItem} onClick={() => handlerOption(0)}></Details>
       )}
     </>

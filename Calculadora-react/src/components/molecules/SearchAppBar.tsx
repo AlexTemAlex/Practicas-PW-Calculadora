@@ -8,6 +8,11 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
+type SearchAppBarProps = {
+  title: string;
+  onSearch: (value: string) => void;
+};
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -50,7 +55,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar({ title }: string) {
+export default function SearchAppBar({ title, onSearch }: SearchAppBarProps) {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch(event.target.value);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -78,6 +87,7 @@ export default function SearchAppBar({ title }: string) {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
+              onChange={handleSearchChange}
               inputProps={{ "aria-label": "search" }}
             />
           </Search>

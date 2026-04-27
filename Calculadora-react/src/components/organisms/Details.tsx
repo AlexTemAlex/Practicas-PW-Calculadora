@@ -4,7 +4,7 @@ import styled from "@mui/system/styled";
 import ContainerAPI from "../atoms/ContainerAPI";
 import Button from "@mui/material/Button";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import type { Product } from "../types/product";
+import type { Product } from "../../types/product";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
