@@ -4,7 +4,7 @@ import styled from "@mui/system/styled";
 import ContainerAPI from "../atoms/ContainerAPI";
 import Button from "@mui/material/Button";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import type { Product } from "../../types/product";
+import type { Pokemon } from "../../types/pokemon";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -20,13 +20,26 @@ const Item = styled("div")(({ theme }) => ({
 }));
 
 type DetailsProps = {
-  item: Product | null;
+  item: Pokemon | null;
   onClick: () => void;
 };
 
-export default function Details({ item, onClick }: DetailsProps) {
+export default function DetailsPokemon({ item, onClick }: DetailsProps) {
   const handlerBack = () => onClick();
+  const name = item.name.toUpperCase();
+  const stats = item.stats.map((s) => {
+    return (
+      <div>
+        <strong>{s.stat.name.toUpperCase()}:</strong> {s.base_stat}
+      </div>
+    );
+  });
 
+  const abilitiesText = item.abilities.map((a) => a.ability.name).join(", ");
+
+  const movesText = item.moves.map((m) => m.move.name).join(", ");
+
+  console.log(item);
   return (
     <ContainerAPI>
       <Typography
@@ -35,52 +48,50 @@ export default function Details({ item, onClick }: DetailsProps) {
         component="div"
         sx={{ textAlign: "center" }}
       >
-        {item.title}
+        {name}
       </Typography>
 
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 6, md: 4 }}>
             <Card sx={{ maxWidth: 345 }}>
+              <Item>
+                <strong>Front Image</strong>
+              </Item>
               <CardMedia
                 component="img"
                 sx={{
                   height: 140,
                   objectFit: "contain",
                 }}
-                image={item.image}
-                title={item.title}
+                image={item.sprites.front_default}
+                title={name}
               />
             </Card>
           </Grid>
           <Grid size={{ xs: 6, md: 8 }}>
-            <Item sx={{ p: 2 }}>
-              <div>
-                <strong>Id:</strong> {item.id}
-              </div>
-
-              <div style={{ fontSize: 18 }}>
-                <strong>Price:</strong> ${item.price}
-              </div>
-
-              <div>
-                <strong>Category:</strong> {item.category}
-              </div>
-
-              <div>
-                <strong>Rating Rate:</strong> ⭐ {item.rating.rate}
-              </div>
-
-              <div>
-                <strong>Rating Count:</strong> {item.rating.count}
-              </div>
+            <Item>
+              <strong>Stats</strong>
             </Item>
+            <Item sx={{ textAlign: "left" }}>{stats}</Item>
           </Grid>
           <Grid size={{ xs: 12, md: 12 }}>
             <Card>
               <CardContent>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {item.description}
+                <Item>
+                  <strong>Description</strong>
+                </Item>
+                <Typography sx={{ color: "text.primary" }}>
+                  <strong>Abilities</strong>
+                </Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  {abilitiesText}
+                </Typography>
+                <Typography sx={{ color: "text.primary" }}>
+                  <strong>Moves</strong>
+                </Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  {movesText}
                 </Typography>
               </CardContent>
             </Card>
@@ -95,7 +106,7 @@ export default function Details({ item, onClick }: DetailsProps) {
               <Grid size="grow"></Grid>
               <Grid size="auto">
                 <Button size="small" variant="contained">
-                  More Details
+                  See Evolutions
                 </Button>
               </Grid>
             </Grid>
