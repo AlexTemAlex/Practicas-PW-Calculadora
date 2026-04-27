@@ -20,7 +20,12 @@ export default function ImgMediaCard({
 }: ImgMediaCardProps) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 180 }} component="img" image={url} alt={title} />
+      <CardMedia
+        sx={{ height: 180, objectFit: "contain" }}
+        component="img"
+        image={url}
+        alt={title}
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
@@ -30,11 +35,8 @@ export default function ImgMediaCard({
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={onClick}>
-          Share
-        </Button>
-        <Button size="small" variant="contained">
-          Learn More
+        <Button size="small" variant="contained" onClick={onClick}>
+          See More
         </Button>
       </CardActions>
     </Card>

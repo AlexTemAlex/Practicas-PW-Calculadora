@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
-import Container from "@mui/material/Container";
+import ContainerAPI from "../atoms/ContainerAPI";
 
 type CardsGridProps = {
   children: React.ReactNode;
@@ -12,10 +12,10 @@ export default function CardsGrid({ children }: CardsGridProps) {
   });
 
   return (
-    <Container maxWidth={false} sx={{ my: 3 }}>
+    <ContainerAPI>
       <Grid container spacing={10}>
         {list}
       </Grid>
-    </Container>
+    </ContainerAPI>
   );
 }

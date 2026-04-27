@@ -2,17 +2,13 @@ import { useState, useEffect } from "react";
 import ImgMediaCard from "../molecules/ImgMediaCard";
 import SearchAppBar from "../molecules/SearchAppBar";
 import CardsGrid from "./CardsGrid";
-
-type ProductList = {
-  id: string;
-  title: string;
-  price: string;
-  image: string;
-};
+import Details from "./Details";
+import type { Product } from "../types/product";
 
 function AppAPI() {
-  const [data, setData] = useState<ProductList[]>([]);
+  const [data, setData] = useState<Product[]>([]);
   const [option, setOption] = useState(0);
+  const [selectedItem, setSelectedItem] = useState<Product | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,11 +25,15 @@ function AppAPI() {
     fetchData();
   }, []);
 
-  const handlerClick = () => {
-    setOption(1);
+  const handlerOption = (option: number) => {
+    setOption(option);
   };
 
-  console.log(data);
+  const handleCardClick = (item: Product) => {
+    setSelectedItem(item);
+    handlerOption(1);
+  };
+
   let list = data.map((item) => {
     return (
       <ImgMediaCard
@@ -41,16 +41,18 @@ function AppAPI() {
         title={item.title}
         url={item.image}
         text={"Price: " + item.price + "$"}
-        onClick={handlerClick}
+        onClick={() => handleCardClick(item)}
       ></ImgMediaCard>
     );
   });
 
   return (
     <>
-      <SearchAppBar />
+      <SearchAppBar title="E-commerce API" />
       {option === 0 && <CardsGrid>{list}</CardsGrid>}
-      {option === 1 && <CardsGrid>{list}</CardsGrid>}
+      {option === 1 && (
+        <Details item={selectedItem} onClick={() => handlerOption(0)}></Details>
+      )}
     </>
   );
 }

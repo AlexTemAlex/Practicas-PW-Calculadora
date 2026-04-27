@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ title }: string) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -70,7 +70,7 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            POKEMON API
+            {title}
           </Typography>
           <Search>
             <SearchIconWrapper>
