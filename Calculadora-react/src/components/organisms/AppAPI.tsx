@@ -1,43 +1,26 @@
 import { useState, useEffect } from "react";
-import ActionAreaCard from "../molecules/ActionAreaCard";
+import ImgMediaCard from "../molecules/ImgMediaCard";
 import SearchAppBar from "../molecules/SearchAppBar";
 import CardsGrid from "./CardsGrid";
 
-type PokemonList = {
-  name: string;
-  url: string;
-};
-
-type PokemonDetails = {
-  id: number;
-  name: string;
-  sprites: {
-    front_default: string;
-  };
-  types: {
-    type: {
-      name: string;
-    };
-  }[];
+type ProductList = {
+  id: string;
+  title: string;
+  price: string;
+  image: string;
 };
 
 function AppAPI() {
-  const [data, setData] = useState<PokemonDetails[]>([]);
+  const [data, setData] = useState<ProductList[]>([]);
+  const [option, setOption] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
+        const res = await fetch("https://fakestoreapi.com/products");
         const json = await res.json();
 
-        const details = await Promise.all(
-          json.results.map(async (pokemon: PokemonList) => {
-            const res = await fetch(pokemon.url);
-            return await res.json();
-          }),
-        );
-
-        setData(details);
+        setData(json);
       } catch (error) {
         console.log("Error: " + error);
       }
@@ -46,20 +29,28 @@ function AppAPI() {
     fetchData();
   }, []);
 
+  const handlerClick = () => {
+    setOption(1);
+  };
+
+  console.log(data);
   let list = data.map((item) => {
     return (
-      <ActionAreaCard
+      <ImgMediaCard
         key={item.id}
-        text={item.name}
-        url={item.sprites.front_default}
-      ></ActionAreaCard>
+        title={item.title}
+        url={item.image}
+        text={"Price: " + item.price + "$"}
+        onClick={handlerClick}
+      ></ImgMediaCard>
     );
   });
 
   return (
     <>
       <SearchAppBar />
-      <CardsGrid>{list}</CardsGrid>/
+      {option === 0 && <CardsGrid>{list}</CardsGrid>}
+      {option === 1 && <CardsGrid>{list}</CardsGrid>}
     </>
   );
 }
