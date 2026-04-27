@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ActionAreaCard from "../molecules/ActionAreaCard";
 import SearchAppBar from "../molecules/SearchAppBar";
+import CardsGrid from "./CardsGrid";
 
 type PokemonList = {
   name: string;
@@ -58,7 +59,7 @@ function AppAPI() {
   return (
     <>
       <SearchAppBar />
-      {list}
+      <CardsGrid>{list}</CardsGrid>/
     </>
   );
 }
