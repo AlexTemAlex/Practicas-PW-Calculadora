@@ -1,5 +1,7 @@
 import { useState } from "react";
 import BasicButton from "../atoms/BasicButton";
+import OutlinedTextField from "../atoms/OutlinedTextField";
+import CenterBox from "../atoms/CenterBox";
 
 type AppSumProps = {
   functionBackMenu: () => void;
@@ -15,7 +17,7 @@ function AppSum({ functionBackMenu }: AppSumProps) {
   };
 
   return (
-    <>
+    <CenterBox>
       <BasicButton text="Back" onClick={() => functionBackMenu()}></BasicButton>
       <form>
         <p>Number 1</p>
@@ -36,7 +38,7 @@ function AppSum({ functionBackMenu }: AppSumProps) {
           Enviar
         </button>
       </form>
-    </>
+    </CenterBox>
   );
 }
 export default AppSum;

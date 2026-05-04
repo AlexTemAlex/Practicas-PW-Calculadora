@@ -1,7 +1,9 @@
 import { useState } from "react";
 import BasicButton from "../atoms/BasicButton";
+import OutlinedTextField from "../atoms/OutlinedTextField";
 import "./Calculator.css";
 import calculate from "../../utils/calculator";
+import CenterBox from "../atoms/CenterBox";
 
 type AppCalculadorProps = {
   functionBackMenu: () => void;
@@ -138,13 +140,18 @@ function AppCalculador({ functionBackMenu }: AppCalculadorProps) {
   });
 
   return (
-    <>
+    <CenterBox>
       <BasicButton text="Back" onClick={() => functionBackMenu()}></BasicButton>
       <div className="calculator-body">
-        <input type="text" value={operation} readOnly />
+        <OutlinedTextField
+          type="text"
+          label="Calculator"
+          value={operation}
+          readOnly={true}
+        ></OutlinedTextField>
         <div className="grid-c3 ">{listButtons}</div>
       </div>
-    </>
+    </CenterBox>
   );
 }
 
