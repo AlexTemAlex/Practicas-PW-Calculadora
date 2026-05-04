@@ -1,4 +1,4 @@
-import Button from "../../Button";
+import BasicButton from "../atoms/BasicButton";
 
 type MenuProps = {
   functionSetOption: (e: number) => void;
@@ -11,13 +11,16 @@ function Menu({ functionSetOption }: MenuProps) {
 
   return (
     <>
-      <Button text="App Sum" onClick={() => handleClick(1)}></Button>
+      <BasicButton text="App Sum" onClick={() => handleClick(1)}></BasicButton>
       <br />
       <br />
-      <Button text="App Calculator" onClick={() => handleClick(2)}></Button>
+      <BasicButton
+        text="App Calculator"
+        onClick={() => handleClick(2)}
+      ></BasicButton>
       <br />
       <br />
-      <Button text="App API" onClick={() => handleClick(3)}></Button>
+      <BasicButton text="App API" onClick={() => handleClick(3)}></BasicButton>
     </>
   );
 }

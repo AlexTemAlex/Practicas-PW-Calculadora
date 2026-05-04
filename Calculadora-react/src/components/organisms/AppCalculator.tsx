@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../../Button";
+import BasicButton from "../atoms/BasicButton";
 import "./Calculator.css";
 import calculate from "../../utils/calculator";
 
@@ -129,17 +129,17 @@ function AppCalculador({ functionBackMenu }: AppCalculadorProps) {
 
   const listButtons = buttons.map((buttCalculator, idx) => {
     return (
-      <Button
+      <BasicButton
         key={idx}
         text={buttCalculator.label}
         onClick={getHandler(buttCalculator.type, buttCalculator.label)}
-      ></Button>
+      ></BasicButton>
     );
   });
 
   return (
     <>
-      <Button text="Back" onClick={() => functionBackMenu()}></Button>
+      <BasicButton text="Back" onClick={() => functionBackMenu()}></BasicButton>
       <div className="calculator-body">
         <input type="text" value={operation} readOnly />
         <div className="grid-c3 ">{listButtons}</div>

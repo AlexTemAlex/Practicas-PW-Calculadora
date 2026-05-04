@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../../Button";
+import BasicButton from "../atoms/BasicButton";
 
 type AppSumProps = {
   functionBackMenu: () => void;
@@ -16,7 +16,7 @@ function AppSum({ functionBackMenu }: AppSumProps) {
 
   return (
     <>
-      <Button text="Back" onClick={() => functionBackMenu()}></Button>
+      <BasicButton text="Back" onClick={() => functionBackMenu()}></BasicButton>
       <form>
         <p>Number 1</p>
         <input

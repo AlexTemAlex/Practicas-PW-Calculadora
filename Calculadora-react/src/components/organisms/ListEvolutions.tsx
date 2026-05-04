@@ -1,10 +1,8 @@
-import { Box } from "@mui/system";
 import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
 import ContainerAPI from "../atoms/ContainerAPI";
-import Button from "@mui/material/Button";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-import type { Pokemon } from "../../types/pokemon";
+import BasicButton from "../atoms/BasicButton";
+import { Card, CardContent } from "@mui/material";
 import StandardImageList from "../molecules/StandardImageList";
 import { useEffect, useState } from "react";
 
@@ -83,9 +81,7 @@ export default function ListEvolutions({
           </Card>
         </Grid>
 
-        <Button size="small" variant="contained" onClick={handlerBack}>
-          Back
-        </Button>
+        <BasicButton onClick={handlerBack} text="Back" />
       </Grid>
     </ContainerAPI>
   );
