@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from "./Button";
+import Button from "../../Button";
 import "./Calculator.css";
-import calculate from "./utils/calculator";
+import calculate from "../../utils/calculator";
 
 type AppCalculadorProps = {
   functionBackMenu: () => void;

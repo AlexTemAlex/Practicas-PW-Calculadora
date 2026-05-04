@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "../../Button";
 
 type MenuProps = {
   functionSetOption: (e: number) => void;
@@ -15,6 +15,9 @@ function Menu({ functionSetOption }: MenuProps) {
       <br />
       <br />
       <Button text="App Calculator" onClick={() => handleClick(2)}></Button>
+      <br />
+      <br />
+      <Button text="App API" onClick={() => handleClick(3)}></Button>
     </>
   );
 }
